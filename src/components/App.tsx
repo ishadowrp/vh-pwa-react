@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from '../img/logo.svg';
 import '../css/App.css';
+import {
+  Link,
+  Outlet
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+  render() {
+
+    return (
+        <div className="app-container">
+          <nav className="nav-bar">
+            <Link to="/" className="nav-link">Главная</Link>
+            <Link to="/categories" className="nav-link">Категории</Link>
+            <Link to="/recipes" className="nav-link">Рецепты</Link>
+            <a href='http://127.0.0.1:8000/swagger/' className="nav-link">Наш API</a>
+          </nav>
+          <Outlet />
+        </div>
+    );
+  }
 }
 
 export default App;
