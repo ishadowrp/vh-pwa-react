@@ -22,13 +22,12 @@ root.render(
         <Routes>
             <Route path="/" element={<App />}>
                 <Route path="/" element={<Last10/>} />
-                <Route path="mediaList" element={<MediaList />} />
+                {/*<Route path="mediaList" element={<MediaList />} />*/}
                 <Route path="mostPopularByViews" element={<MostPopularByViews />} />
-                <Route path="myFavorites" element={<MyFavorites />}>
-                    <Route path="profileMenu" element={<MyProfile />}>
-                        <Route path="myMessages" element={<MyMessages />} />
-                        <Route path="myMedia" element={<MyMedia />} />
-                    </Route>
+                <Route path="myFavorites" element={<MyFavorites />} />
+                <Route path="profileMenu" element={<MyProfile />}>
+                    <Route path="myMessages" element={<MyMessages />} />
+                    <Route path="myMedia" element={<MyMedia />} />
                 </Route>
             </Route>
             <Route path="*" element={<NoMatch />} />
