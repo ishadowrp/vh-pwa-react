@@ -7,11 +7,14 @@ import MyFavorites from '../src/components/myFavorites';
 import MyProfile from '../src/components/myProfile';
 import MyMessages from '../src/components/myMessages';
 import MyMedia from '../src/components/myMedia';
-import MediaList from '../src/components/mediaList';
 import MostPopularByViews from './components/mostPopularByViews';
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+const store = createStore(rootReducer);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,7 +25,6 @@ root.render(
         <Routes>
             <Route path="/" element={<App />}>
                 <Route path="/" element={<Last10/>} />
-                {/*<Route path="mediaList" element={<MediaList />} />*/}
                 <Route path="mostPopularByViews" element={<MostPopularByViews />} />
                 <Route path="myFavorites" element={<MyFavorites />} />
                 <Route path="profileMenu" element={<MyProfile />}>
