@@ -1,4 +1,4 @@
-export default interface AppProps {
+export interface AppProps {
     id?: string;
 }
 
@@ -13,7 +13,7 @@ type MyMedia = {
     current_rating?: string
 }
 
-type MediaList = [MyMedia]
+type MyMediaList = [MyMedia]
 
 type Comment = {
     id?: number,
@@ -26,6 +26,24 @@ type Comment = {
 
 type CommentList = [Comment]
 
+type MyMediaRating = {
+    id?: number,
+    media: number,
+    author:	number,
+    rating:	number,
 
+}
 
-export type {MyMedia, MediaList, }
+type CommentRating = {
+    id?: number,
+    comment: number,
+    author:	number,
+    rating:	number,
+}
+
+type ActionType = {
+    type: string,
+    data: MyMediaRating,
+}
+
+export type {MyMedia, MyMediaList, Comment, CommentList, MyMediaRating, CommentRating, ActionType}

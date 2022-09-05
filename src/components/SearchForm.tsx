@@ -1,5 +1,5 @@
 import React from 'react';
-import AppProps from "../types/myTypes";
+import {AppProps} from "../types/myTypes";
 import searchButton from '../img/search-button.svg';
 
 const SearchForm: (props: AppProps) => JSX.Element= (props: AppProps) => {

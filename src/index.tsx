@@ -3,38 +3,38 @@ import ReactDOM from 'react-dom/client';
 import './css/index.css';
 import App from './components/App';
 import Last10 from '../src/components/last10';
-import MyFavorites from '../src/components/myFavorites';
+import AllMedia from '../src/components/allMedia';
 import MyProfile from '../src/components/myProfile';
 import MyMessages from '../src/components/myMessages';
 import MyMedia from '../src/components/myMedia';
 import MostPopularByViews from './components/mostPopularByViews';
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+// import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-
-const store = createStore(rootReducer);
+import store from './redux/store'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<App />}>
-                <Route path="/" element={<Last10/>} />
-                <Route path="mostPopularByViews" element={<MostPopularByViews />} />
-                <Route path="myFavorites" element={<MyFavorites />} />
-                <Route path="profileMenu" element={<MyProfile />}>
-                    <Route path="myMessages" element={<MyMessages />} />
-                    <Route path="myMedia" element={<MyMedia />} />
+    <Provider store={store}>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<App />}>
+                    <Route path="/" element={<Last10/>} />
+                    <Route path="mostPopularByViews" element={<MostPopularByViews />} />
+                    <Route path="all" element={<AllMedia />} />
+                    <Route path="profileMenu" element={<MyProfile />}>
+                        <Route path="myMessages" element={<MyMessages />} />
+                        <Route path="myMedia" element={<MyMedia />} />
+                    </Route>
                 </Route>
-            </Route>
-            <Route path="*" element={<NoMatch />} />
-        </Routes>
-    </BrowserRouter>
+                <Route path="*" element={<NoMatch />} />
+            </Routes>
+        </BrowserRouter>
+    </Provider>
 );
 
 function NoMatch() {
@@ -56,4 +56,4 @@ serviceWorkerRegistration.register();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();

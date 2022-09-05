@@ -1,6 +1,8 @@
-import actions from '../../types/constants';
-import {MyMedia} from '../../types/myTypes';
+import {actions} from '../../types/constants';
+import {MyMedia, ActionType} from '../../types/myTypes';
 
-function add_media(media: MyMedia) {
-    return { type: actions.ADD_MEDIA, media };
+
+export function setFilter(filter:string) {
+    return {type: actions.SET_FILTER, payload: {filter}};
 }
+
