@@ -1,23 +1,25 @@
-import React from 'react';
-import {connect} from "react-redux";
-import { setFilter } from "../redux/actions/actions";
-import {VISIBILITY_FILTERS} from "../types/constants";
-import MediaList from './MediaList'
+import React, {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from "../hooks/hooks";
+import Media from "./Media";
+import {MyMediaType} from "../types/myTypes";
+import {getAxiosAllMedia} from "../store/actions/mediaList";
 
 function AllMedia() {
+    const {mediaData, error, loading} = useAppSelector(state => state.mediaList);
+    const dispatch = useAppDispatch();
 
-    setFilter(VISIBILITY_FILTERS.ALL)
+    useEffect(() => {
+        dispatch(getAxiosAllMedia())
+    }, [])
 
+    console.log(mediaData);
+    console.log(error);
+    console.log(loading);
     return (
-        <MediaList/>
+        <React.Fragment>
+            {mediaData.map((media:MyMediaType) => <Media key = {media.id} media = {media}/>)}
+        </React.Fragment>
     )
 }
 
-function mapStateToProps(state:any) {
-    return {activeFilter: state.visibilityFilter};
-}
-
-export default connect(
-    mapStateToProps,
-    { setFilter }
-)(AllMedia);
+export default AllMedia

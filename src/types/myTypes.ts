@@ -1,8 +1,21 @@
+import {AllMediaListActions, UserLoginActions} from "./constants";
+
 export interface AppProps {
     id?: string;
 }
 
-type MyMedia = {
+type StateType = {
+    visibilityFilter?: string,
+    mediaListData?: MyMediaListType,
+    mediaData?: MyMediaType,
+    user?: number,
+    username?: string,
+    token?: string,
+    commentListData?: CommentListType,
+    comment?: Comment,
+}
+
+type MyMediaType = {
     id?: number,
     title: string,
     description: string,
@@ -13,9 +26,9 @@ type MyMedia = {
     current_rating?: string
 }
 
-type MyMediaList = [MyMedia]
+type MyMediaListType = [MyMediaType]
 
-type Comment = {
+type CommentType = {
     id?: number,
     media:	number,
     author:	number,
@@ -24,9 +37,9 @@ type Comment = {
     content: string,
 }
 
-type CommentList = [Comment]
+type CommentListType = [CommentType]
 
-type MyMediaRating = {
+type MyMediaRatingType = {
     id?: number,
     media: number,
     author:	number,
@@ -34,16 +47,70 @@ type MyMediaRating = {
 
 }
 
-type CommentRating = {
+type CommentRatingType = {
     id?: number,
     comment: number,
     author:	number,
     rating:	number,
 }
 
-type ActionType = {
-    type: string,
-    data: MyMediaRating,
+interface GetAllMediaListAction {
+    type: AllMediaListActions.GET_ALL_MEDIA;
 }
 
-export type {MyMedia, MyMediaList, Comment, CommentList, MyMediaRating, CommentRating, ActionType}
+interface GetAllMediaListSuccessAction {
+    type: AllMediaListActions.GET_ALL_MEDIA_SUCCESS;
+    payload: [];
+}
+
+interface GetAllMediaListErrorAction {
+    type: AllMediaListActions.GET_ALL_MEDIA_ERROR;
+    payload: string;
+}
+
+type AllMediaListActionType = GetAllMediaListAction|GetAllMediaListSuccessAction|GetAllMediaListErrorAction;
+
+interface SubmitLoginAction {
+    type: UserLoginActions.SUBMIT_USER_LOGIN_DATA;
+    payload: string;
+}
+
+interface UserData {
+    id: number,
+    username: string,
+    token: string,
+    avatarUrl: string,
+}
+
+interface GetUserProfileAction {
+    type: UserLoginActions.GET_USER_PROFILE;
+    payload: UserData;
+}
+
+interface SubmitLogoutAction {
+    type: UserLoginActions.LOGOUT_USER_LOGIN;
+    payload: string;
+}
+
+type userActionType = SubmitLoginAction|GetUserProfileAction|SubmitLogoutAction
+
+export interface mediaListState {
+    mediaData: [];
+    loading: boolean;
+    error: null|string;
+}
+
+export interface userLoginState {
+    id: number;
+    username: string;
+    token: string;
+    avatarUrl: string;
+    error: null|string;
+}
+
+type propsMediaType = {
+    key: number|undefined,
+    media: MyMediaType,
+}
+
+export type {MyMediaType, MyMediaListType, CommentType, CommentListType, MyMediaRatingType, CommentRatingType, AllMediaListActionType, StateType, userActionType, propsMediaType}

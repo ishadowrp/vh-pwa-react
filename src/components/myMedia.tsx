@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function myMedia() {
+function MyMedia() {
     return (
         <React.Fragment>
             <div></div>
@@ -9,4 +9,4 @@ function myMedia() {
     )
 }
 
-export default myMedia;
+export default MyMedia;
