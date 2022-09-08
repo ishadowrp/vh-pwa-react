@@ -100,12 +100,23 @@ export interface mediaListState {
     error: null|string;
 }
 
-export interface userLoginState {
+export interface UserType {
     id: number;
     username: string;
+    telephone: string;
     token: string;
-    avatarUrl: string;
+    avatar: string;
+}
+
+export interface userLoginState {
+    user: UserType;
     error: null|string;
+    loading: boolean;
+}
+
+export interface UserDataType {
+    login: string;
+    password: string;
 }
 
 type propsMediaType = {

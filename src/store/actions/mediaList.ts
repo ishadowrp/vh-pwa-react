@@ -1,28 +1,41 @@
 import axios from "axios";
-import {AppDispatch} from "../store";
-import {mediaListSlice} from "../reducers/mediaReducer";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
-
-export const getAxiosAllMedia = () => {
-    return async (dispatch: AppDispatch) => {
-        try {
-            dispatch(mediaListSlice.actions.getAllMedia)
-            const response = await axios.get('http://127.0.0.1:8000/api/v1/media/', {
+export const getAxiosAllMedia = createAsyncThunk(
+    'mediaList/getAll',
+    async () => {
+        const response = await axios.get('http://127.0.0.1:8000/api/v1/media/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Token a3ce009643034a3dc227061545c95139a5891f6d',
                 }
             });
-            if (response.status === 200) {
-                console.log(response.data)
-                dispatch(mediaListSlice.actions.getAllMediaSuccess(response.data))
-            } else {
-                dispatch(mediaListSlice.actions.getAllMediaError('Не удалось получить данные на сервере.'));
-            }
-        } catch (e) {
-            dispatch(mediaListSlice.actions.getAllMediaError('Не удалось соединиться с сервером.'));
-        }
+        return response.data;
     }
-}
+)
 
+export const getAxiosLast10Media = createAsyncThunk(
+    'mediaList/getLast10',
+    async () => {
+        const response = await axios.get('http://127.0.0.1:8000/api/v1/media/order?ordering=-date_posted', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token a3ce009643034a3dc227061545c95139a5891f6d',
+            }
+        });
+        return response.data.slice(0,10);
+    }
+)
 
+export const getAxiosMostPopularMedia = createAsyncThunk(
+    'mediaList/getMostPopular',
+    async () => {
+        const response = await axios.get('http://127.0.0.1:8000/api/v1/media/order?ordering=-views_count', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token a3ce009643034a3dc227061545c95139a5891f6d',
+            }
+        });
+        return response.data.slice(0,20);
+    }
+)

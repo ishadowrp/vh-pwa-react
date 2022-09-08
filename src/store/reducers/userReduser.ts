@@ -1,24 +1,53 @@
-import {userActionType, userLoginState} from "../../types/myTypes";
-import {UserLoginActions} from "../../types/constants";
+import {userLoginState, UserType} from "../../types/myTypes";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {getAxiosAllMedia} from "../actions/mediaList";
+import {userLogin} from "../actions/userLogin";
+
 
 const initialState:userLoginState = {
-    id: 0,
-    username: '',
-    token: '',
-    avatarUrl: '',
+    user: {
+        id: 0,
+        username: '',
+        telephone: '',
+        token: '',
+        avatar: '',
+    },
     error: null,
+    loading: false,
 }
 
-export const userLoginReducer = (state = initialState, action:userActionType) => {
-    switch (action.type) {
-        case UserLoginActions.SUBMIT_USER_LOGIN_DATA :
-            return {userID: 0, username: '', token: action.payload, avatarUrl: '', error: null}
-        case UserLoginActions.GET_USER_PROFILE:
-            return {id: action.payload.id, username: action.payload.username, token: action.payload.token, avatarUrl: action.payload.avatarUrl, error: null}
-        case UserLoginActions.LOGOUT_USER_LOGIN :
-            return {error: action.payload}
-        default:
-            return state
+export const userLoginSlice = createSlice({
+    name: 'userLogin',
+    initialState: initialState,
+    reducers: {},
+    extraReducers: {
+        [userLogin.fulfilled.type]: (state = initialState, action: PayloadAction<UserType>) => {
+            state.loading = false;
+            state.user = action.payload;
+            state.error = null;
+        },
+        [getAxiosAllMedia.pending.type]: (state = initialState, action: PayloadAction) => {
+            state.loading = true;
+            state.user = {
+                id: 0,
+                username: '',
+                telephone: '',
+                token: '',
+                avatar: '',
+            };
+            state.error = null;
+        },
+        [getAxiosAllMedia.rejected.type]: (state = initialState, action: PayloadAction<string>) => {
+            state.loading = false;
+            state.user = {
+                id: 0,
+                username: '',
+                telephone: '',
+                token: '',
+                avatar: '',
+            };
+            state.error = action.payload;
+        },
     }
+})
 
-}

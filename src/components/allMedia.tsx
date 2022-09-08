@@ -12,9 +12,6 @@ function AllMedia() {
         dispatch(getAxiosAllMedia())
     }, [])
 
-    console.log(mediaData);
-    console.log(error);
-    console.log(loading);
     return (
         <React.Fragment>
             {mediaData.map((media:MyMediaType) => <Media key = {media.id} media = {media}/>)}
